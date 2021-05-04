@@ -3,12 +3,23 @@ package store.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Nomenclature {
+public class Nomenclature implements Model {
     private int id;
-    private int bouquet;
     private String name;
     private int price;
     private int balance;
+    private int count;
+
+    public Nomenclature() {
+    }
+
+    public Nomenclature(String name, int price, int balance, int count) {
+        this.name = name;
+        this.price = price;
+        this.balance = balance;
+        this.count = count;
+    }
+
     private Map<String, String> specifications = new HashMap<>();
 
     public int getPrice() {
@@ -21,10 +32,6 @@ public class Nomenclature {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setBouquet(int bouquet) {
-        this.bouquet = bouquet;
     }
 
     public int getId() {
@@ -47,23 +54,11 @@ public class Nomenclature {
         this.specifications = specifications;
     }
 
-    public Nomenclature(int bouquet, String name, int price, int balance, Map<String, String> specifications) {
-        this.bouquet = bouquet;
-        this.name = name;
-        this.price = price;
-        this.balance = balance;
-        this.specifications = specifications;
-    }
-
-    public String getQuery() {
-        return "INSERT INTO nomenclature(name, bouquetID) VALUES('" + name + "'," + bouquet + ")";
+    public int getCount() {
+        return count;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getBouquet() {
-        return bouquet;
     }
 }

@@ -1,13 +1,13 @@
 package store;
 
-import store.db.DBService;
-import store.initializers.DataInitializer;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
+@SpringBootApplication
+@EnableCaching
 public class Main {
     public static void main(String[] args) {
-        DBService dbService = new DBService();
-        dbService.init();
-        DataInitializer dataInitializer = new DataInitializer();
-        dataInitializer.init();
+        SpringApplication.run(Main.class, args);
     }
 }

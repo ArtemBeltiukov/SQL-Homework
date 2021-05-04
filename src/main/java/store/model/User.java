@@ -1,13 +1,28 @@
 package store.model;
 
-public class User {
+public class User implements Model{
     private int id;
     private String name;
     private String password;
+    private String role;
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+    public User(String name, String password, String role) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getId() {
@@ -34,9 +49,6 @@ public class User {
         this.password = password;
     }
 
-    public String getQuery() {
-        return "INSERT INTO users(name,password) VALUES('" + name + "','" + password + "')";
-    }
 
     @Override
     public boolean equals(Object obj) {

@@ -1,27 +1,57 @@
 package store.model;
 
-import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
-public class Order {
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "order", propOrder = {
+        "id",
+        "userID",
+        "counteragent"
+})
+public class Order implements Model {
     private int id;
     private int userID;
     private int counteragent;
+//    private List<Nomenclature> nomenclatureList;
+//    private boolean realized;
 
     public Order(int userID, int counteragent) {
         this.userID = userID;
         this.counteragent = counteragent;
     }
 
-    public String getQuery() {
-        String query;
-        if (counteragent != 0)
-            query = "INSERT INTO orders(userID,counteragent) VALUES (" + userID + ", " + counteragent + ")";
-        else
-            query = "INSERT INTO orders(userID,counteragent) VALUES (" + userID + ", null)";
+//    public Order(int userID, int counteragent, List<Nomenclature> nomenclatureList) {
+//        this.userID = userID;
+//        this.counteragent = counteragent;
+////        this.nomenclatureList = nomenclatureList;
+//    }
 
-        return query;
+    public Order() {
+
     }
+
+//    public Order(int userID, int counteragent, List<Nomenclature> nomenclatureList, boolean realized) {
+//        this.userID = userID;
+//        this.counteragent = counteragent;
+//        this.nomenclatureList = nomenclatureList;
+//        this.realized = realized;
+//    }
+
+//    public boolean isRealized() {
+//        return realized;
+//    }
+
+//    public void setRealized(boolean realized) {
+//        this.realized = realized;
+//    }
+
+//    public List<Nomenclature> getNomenclatureList() {
+//        return nomenclatureList;
+//    }
 
     public void setId(int id) {
         this.id = id;
@@ -47,5 +77,7 @@ public class Order {
         return counteragent;
     }
 
-
+//    public void setNomenclatureList(List<Nomenclature> nomenclatureList) {
+//        this.nomenclatureList = nomenclatureList;
+//    }
 }

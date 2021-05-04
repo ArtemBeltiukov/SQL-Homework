@@ -1,6 +1,6 @@
 package store.model;
 
-public class Counteragent {
+public class Counteragent implements Model{
     private int id;
     private String name;
 
@@ -22,9 +22,5 @@ public class Counteragent {
 
     public Counteragent(String name) {
         this.name = name;
-    }
-
-    public String getQuery() {
-        return "INSERT INTO counteragents(name) VALUES('" + name + "')";
     }
 }
