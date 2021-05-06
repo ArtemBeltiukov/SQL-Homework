@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+
 @Repository
 public class DBInitializer {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @Bean
+    @PostConstruct
     public void init() {
         String usersQuery = "CREATE TABLE IF NOT EXISTS " +
                 "users(id serial PRIMARY KEY," +
