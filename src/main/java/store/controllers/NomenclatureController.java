@@ -31,13 +31,13 @@ public class NomenclatureController implements ApiController {
     public ResponseEntity<Model> getById(int id) {
         Nomenclature nomenclature = new Nomenclature();
         nomenclature.setId(id);
-        try{
+        try {
             Model response = nomenclatureService.read(nomenclature);
-            if (response==null)
+            if (response == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             else
-                return new ResponseEntity<>(nomenclature,HttpStatus.OK);
-        }catch (Exception e){
+                return new ResponseEntity<>(nomenclature, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -8,7 +8,9 @@ import java.util.List;
 public interface ApiController {
 
     ResponseEntity<List<Model>> getAll();
+
     ResponseEntity<Model> getById(int id);
+
     ResponseEntity<?> create();
 
 }

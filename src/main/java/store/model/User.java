@@ -1,6 +1,6 @@
 package store.model;
 
-public class User implements Model{
+public class User implements Model {
     private int id;
     private String name;
     private String password;

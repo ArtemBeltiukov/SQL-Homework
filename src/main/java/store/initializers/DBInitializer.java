@@ -1,4 +1,4 @@
-package store.db;
+package store.initializers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 @Repository
 public class DBInitializer {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
     public void init() {

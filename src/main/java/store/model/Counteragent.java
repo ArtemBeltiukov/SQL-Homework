@@ -1,6 +1,6 @@
 package store.model;
 
-public class Counteragent implements Model{
+public class Counteragent implements Model {
     private int id;
     private String name;
 

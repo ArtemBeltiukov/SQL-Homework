@@ -9,6 +9,7 @@ import store.model.Counteragent;
 import store.model.Model;
 
 import java.sql.Statement;
+
 @Component
 public class CounteragentService implements Service {
 
@@ -31,7 +32,7 @@ public class CounteragentService implements Service {
     public Model read(Model model) {
         if (!(model instanceof Counteragent))
             throw new IllegalArgumentException("object isn`t counteragent");
-        return jdbcTemplate.queryForObject("select * from Counteragent where id="+((Counteragent) model).getId(), Counteragent.class);
+        return jdbcTemplate.queryForObject("select * from Counteragent where id=" + ((Counteragent) model).getId(), Counteragent.class);
     }
 
     @Override
@@ -39,8 +40,8 @@ public class CounteragentService implements Service {
         if (!(model instanceof Counteragent))
             throw new IllegalArgumentException("object isn`t counteragent");
         String query = "UPDATE counteragent " +
-                "SET name ="+((Counteragent) model).getName()+" " +
-                "Where id ="+((Counteragent) model).getId();
+                "SET name =" + ((Counteragent) model).getName() + " " +
+                "Where id =" + ((Counteragent) model).getId();
         jdbcTemplate.execute(query);
     }
 
@@ -48,7 +49,7 @@ public class CounteragentService implements Service {
     public void delete(Model model) {
         if (!(model instanceof Counteragent))
             throw new IllegalArgumentException("object isn`t Counteragent");
-        String query = "DELETE from Counteragent where id="+((Counteragent) model).getId();
+        String query = "DELETE from Counteragent where id=" + ((Counteragent) model).getId();
         jdbcTemplate.execute(query);
     }
 }

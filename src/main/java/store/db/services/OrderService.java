@@ -10,6 +10,7 @@ import store.model.Model;
 import store.model.Nomenclature;
 import store.model.Order;
 
+import java.math.BigInteger;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,33 +22,33 @@ public class OrderService implements Service {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public Map<String, Object> getAll(int userId){
+    public Map<String, Object> getAll(BigInteger userId) {
         String query = "select * from orders where userID=" + userId;
 
-        return jdbcTemplate.call(conn -> conn.prepareCall(query),new ArrayList<>());
+        return jdbcTemplate.call(conn -> conn.prepareCall(query), new ArrayList<>());
     }
 
     @Override
     @Transactional
     public int create(Model model) {
-//        if (!(model instanceof Order))
-//            throw new IllegalArgumentException("object isn`t Order");
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        String query;
-//        if (((Order) model).getCounteragent() != 0)
-//            query = "INSERT INTO orders(userID,counteragent) VALUES (" + ((Order) model).getUserID() + ", " + ((Order) model).getCounteragent() + ")";
-//        else
-//            query = "INSERT INTO orders(userID,counteragent) VALUES (" + ((Order) model).getUserID() + ", null)";
-//
-//        jdbcTemplate.update(conn -> conn.prepareStatement(query,
-//                Statement.RETURN_GENERATED_KEYS),
-//                keyHolder);
-//        int id = (int) keyHolder.getKeys().get("id");
+        if (!(model instanceof Order))
+            throw new IllegalArgumentException("object isn`t Order");
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String query;
+        if (((Order) model).getCounteragent() != 0)
+            query = "INSERT INTO orders(userID,counteragent) VALUES (" + ((Order) model).getUserID() + ", " + ((Order) model).getCounteragent() + ")";
+        else
+            query = "INSERT INTO orders(userID,counteragent) VALUES (" + ((Order) model).getUserID() + ", null)";
+
+        jdbcTemplate.update(conn -> conn.prepareStatement(query,
+                Statement.RETURN_GENERATED_KEYS),
+                keyHolder);
+        int id = (int) keyHolder.getKeys().get("id");
 //        for (Nomenclature nomenclature : ((Order) model).getNomenclatureList()) {
 //            jdbcTemplate.execute("INSERT INTO orders_bouquets(orderID, nomenclature, price, count) " +
 //                    "VALUES (" + id + "," + nomenclature.getId() + ", " + nomenclature.getPrice() + ", " + nomenclature.getCount() + ")");
 //        }
-        return 0;
+        return id;
     }
 
     @Override

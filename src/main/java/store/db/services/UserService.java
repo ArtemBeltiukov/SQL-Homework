@@ -21,7 +21,7 @@ public class UserService implements Service {
         if (!(model instanceof User))
             throw new IllegalArgumentException("object isn`t User");
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "INSERT INTO users(name,password,role) VALUES('" + ((User) model).getName() + "','" + ((User) model).getPassword() + "','"+((User) model).getRole()+"')";
+        String query = "INSERT INTO users(name,password,role) VALUES('" + ((User) model).getName() + "','" + ((User) model).getPassword() + "','" + ((User) model).getRole() + "')";
         jdbcTemplate.update(conn -> conn.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS),
                 keyHolder);
@@ -49,6 +49,6 @@ public class UserService implements Service {
     }
 
     public User getByName(String name) {
-        return jdbcTemplate.queryForObject("select * from users where name = '" + name+"' LIMIT 1", User.class);
+        return jdbcTemplate.queryForObject("select * from users where name = '" + name + "' LIMIT 1", User.class);
     }
 }

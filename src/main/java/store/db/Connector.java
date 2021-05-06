@@ -11,11 +11,11 @@ import javax.sql.DataSource;
 public class Connector {
     @Bean
     public JdbcTemplate jdbcTemplate() {
-        final String driverClassName = "org.postgresql.Driver";
-        final String jdbcUrl = "jdbc:postgresql://hattie.db.elephantsql.com:5432/vjupirtb";
-        final String username = "vjupirtb";
-        final String password = "SE0iZbLs8JZfk-WG4ScBFBMZgtLMbd2q";
-        final DataSource dataSource = DataSourceBuilder.create().driverClassName(driverClassName).url(jdbcUrl).username(username).password(password).build();
+        final String driverClassName = "org.h2.Driver";
+        final String jdbcUrl = "jdbc:h2:mem:test";
+//        final String username = "vjupirtb";
+//        final String password = "yKcpQTJcIWRywgWbHgR023nGHMXnNySq";
+        final DataSource dataSource = DataSourceBuilder.create().driverClassName(driverClassName).url(jdbcUrl).build();
         return new JdbcTemplate(dataSource);
     }
 }
