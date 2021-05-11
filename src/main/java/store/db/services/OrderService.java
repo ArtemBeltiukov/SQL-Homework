@@ -1,6 +1,9 @@
 package store.db.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -21,10 +24,12 @@ public class OrderService implements Service {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    @Cacheable("orders")
     public Map<String, Object> getAll(BigInteger userId) {
         String query = "select * from orders where userID=" + userId;
-
+        log.info("query to database");
         return jdbcTemplate.call(conn -> conn.prepareCall(query), new ArrayList<>());
     }
 

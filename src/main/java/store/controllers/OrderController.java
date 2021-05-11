@@ -20,7 +20,6 @@ public class OrderController implements ApiController {
     @Override
     @GetMapping("/")
     public ResponseEntity<List<Model>> getAll() {
-//        orderService.getAll("");
         return null;
     }
 

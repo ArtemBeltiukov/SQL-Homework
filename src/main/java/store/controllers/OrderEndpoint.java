@@ -1,8 +1,8 @@
 package store.controllers;
 
-import com.baeldung.springsoap.gen.GetOrdersRequest;
-import com.baeldung.springsoap.gen.GetOrdersResponse;
-import com.baeldung.springsoap.gen.Order;
+import com.example.gen.GetOrdersRequest;
+import com.example.gen.GetOrdersResponse;
+import com.example.gen.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Endpoint
 public class OrderEndpoint implements PayloadEndpoint {
-    private static final String NAMESPACE_URI = "http://www.baeldung.com/springsoap/gen";
+    private static final String NAMESPACE_URI = "http://www.example.com/gen";
 
     private OrderService orderService;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
