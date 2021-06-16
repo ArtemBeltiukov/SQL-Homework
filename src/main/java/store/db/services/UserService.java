@@ -1,5 +1,8 @@
 package store.db.services;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,9 +12,18 @@ import store.model.Model;
 import store.model.Nomenclature;
 import store.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.math.BigInteger;
 import java.sql.Statement;
+import java.util.List;
 
-@Component
+//@Component
 public class UserService implements Service {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -25,7 +37,7 @@ public class UserService implements Service {
         jdbcTemplate.update(conn -> conn.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS),
                 keyHolder);
-        return (int) keyHolder.getKeys().get("id");
+        return ((BigInteger) keyHolder.getKeys().get("GENERATED_KEY")).intValue();
     }
 
     @Override
@@ -46,6 +58,16 @@ public class UserService implements Service {
     @Override
     public void delete(Model model) {
 
+    }
+
+    @Override
+    public List<Model> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<Nomenclature> getAllByCriteria() {
+        return null;
     }
 
     public User getByName(String name) {

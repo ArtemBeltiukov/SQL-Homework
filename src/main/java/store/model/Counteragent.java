@@ -1,6 +1,12 @@
 package store.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "counteragents")
 public class Counteragent implements Model {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 

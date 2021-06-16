@@ -12,18 +12,22 @@ import org.springframework.transaction.annotation.Transactional;
 import store.model.Model;
 import store.model.Nomenclature;
 import store.model.Order;
+import store.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
 import java.math.BigInteger;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Component
+//@Component
 public class OrderService implements Service {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Cacheable("orders")
@@ -48,11 +52,7 @@ public class OrderService implements Service {
         jdbcTemplate.update(conn -> conn.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS),
                 keyHolder);
-        int id = (int) keyHolder.getKeys().get("id");
-//        for (Nomenclature nomenclature : ((Order) model).getNomenclatureList()) {
-//            jdbcTemplate.execute("INSERT INTO orders_bouquets(orderID, nomenclature, price, count) " +
-//                    "VALUES (" + id + "," + nomenclature.getId() + ", " + nomenclature.getPrice() + ", " + nomenclature.getCount() + ")");
-//        }
+        int id = ((BigInteger) keyHolder.getKeys().get("GENERATED_KEY")).intValue();
         return id;
     }
 
@@ -64,18 +64,7 @@ public class OrderService implements Service {
     @Override
     @Transactional
     public void update(Model model) {
-//        if (!(model instanceof Order))
-//            throw new IllegalArgumentException("object isn`t Order");
-//        String query = "UPDATE orders " +
-//                "SET userID =" + ((Order) model).getUserID() + "," +
-//                "counteragent =" + ((Order) model).getCounteragent() +
-//                "Where id =" + ((Order) model).getId();
-//        jdbcTemplate.execute("Delete from orders_bouquets where orderID=" + ((Order) model).getId());
-//        for (Nomenclature nomenclature : ((Order) model).getNomenclatureList()) {
-//            jdbcTemplate.execute("INSERT INTO orders_bouquets(orderID, nomenclature, price, count) " +
-//                    "VALUES (" + ((Order) model).getId() + "," + nomenclature + ", " + nomenclature.getPrice() + ", " + nomenclature.getCount() + ")");
-//        }
-//        jdbcTemplate.execute(query);
+
     }
 
     @Override
@@ -87,4 +76,15 @@ public class OrderService implements Service {
         jdbcTemplate.execute("Delete from orders_bouquets where orderID=" + ((Order) model).getId());
         jdbcTemplate.execute(query);
     }
+
+    @Override
+    public List<Model> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<Nomenclature> getAllByCriteria() {
+        return null;
+    }
+
 }

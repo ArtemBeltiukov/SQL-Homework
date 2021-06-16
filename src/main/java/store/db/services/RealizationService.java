@@ -10,9 +10,14 @@ import store.model.Nomenclature;
 import store.model.Order;
 import store.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.Statement;
+import java.util.List;
 
-@Component
+//@Component
 public class RealizationService implements Service {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -54,5 +59,15 @@ public class RealizationService implements Service {
     @Override
     public void delete(Model model) {
 
+    }
+
+    @Override
+    public List<Model> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<Nomenclature> getAllByCriteria() {
+        return null;
     }
 }

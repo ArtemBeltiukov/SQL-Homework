@@ -1,0 +1,49 @@
+version: '3'
+networks:
+  local:
+    driver: bridge
+  
+services:
+  sec:
+    build:
+      context: D:\epam\projects\SpringApp\build\libs\
+      
+    container_name: security
+    image: security:latest
+    
+    volumes:
+      - "./web/src:/web/src"
+    ports:
+      - "8080:8080"
+    
+    networks:
+      - local
+      
+  web:
+    build:
+      context: D:\epam\projects\SQLHomework\build\libs\
+      
+    container_name: web
+    image: web:latest
+    
+    depends_on:
+      - mysql
+    volumes:
+      - "./web/src:/web/src"
+    ports:
+      - "8090:8090"
+    networks:
+      - local
+      
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: store
+
+    ports:
+      - "6033:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - local

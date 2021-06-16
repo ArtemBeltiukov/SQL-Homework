@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import store.db.services.NomenclatureService;
+import store.db.services.Service;
 import store.model.Model;
 import store.model.Nomenclature;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class NomenclatureController implements ApiController {
 
     @Autowired
-    NomenclatureService nomenclatureService;
+    Service nomenclatureService;
 
     @Override
     @GetMapping("/")

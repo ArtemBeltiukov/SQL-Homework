@@ -1,32 +1,39 @@
 package store.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "nomenclature")
 public class Nomenclature implements Model {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
-    private int price;
-    private int balance;
-    private int count;
+    private int bouquetId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "price", referencedColumnName = "nomenclature_id")
+    private Price price;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "balance", referencedColumnName = "nomenclature_id")
+    private Balance balance;
 
     public Nomenclature() {
     }
 
-    public Nomenclature(String name, int price, int balance, int count) {
+    public Nomenclature(String name, int price, int balance) {
         this.name = name;
-        this.price = price;
-        this.balance = balance;
-        this.count = count;
+        this.price = new Price(price);
+        this.balance = new Balance(balance);
     }
 
-    private Map<String, String> specifications = new HashMap<>();
-
-    public int getPrice() {
+    public Price getPrice() {
         return price;
     }
 
-    public int getBalance() {
+    public Balance getBalance() {
         return balance;
     }
 
@@ -42,23 +49,25 @@ public class Nomenclature implements Model {
         this.name = name;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Price price) {
         this.price = price;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Balance balance) {
         this.balance = balance;
-    }
-
-    public void setSpecifications(Map<String, String> specifications) {
-        this.specifications = specifications;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     public String getName() {
         return name;
     }
+
+    public int getBouquetId() {
+        return bouquetId;
+    }
+
+    public void setBouquetId(int bouquetId) {
+        this.bouquetId = bouquetId;
+    }
+
 }
+

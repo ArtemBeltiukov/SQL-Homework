@@ -10,8 +10,8 @@ import store.model.Order;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/orders")
+//@RestController
+//@RequestMapping("/api/orders")
 public class OrderController implements ApiController {
 
     @Autowired

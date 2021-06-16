@@ -1,6 +1,10 @@
 package store.db.services;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,10 +13,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import store.model.Model;
 import store.model.Nomenclature;
+import store.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.math.BigInteger;
 import java.sql.*;
+import java.util.List;
 
 @Component
+@ConditionalOnProperty(prefix = "enable", name = "jdbc")
 public class NomenclatureService implements Service {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -23,13 +35,13 @@ public class NomenclatureService implements Service {
         if (!(nomenclature instanceof Nomenclature))
             throw new IllegalArgumentException("object isn`t Nomenclature");
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "INSERT INTO nomenclature(name) VALUES('" + ((Nomenclature) nomenclature).getName() + "')";
+        String query = "INSERT INTO nomenclature(name, bouquetId, balance, price) VALUES('" + ((Nomenclature) nomenclature).getName() + "', "+((Nomenclature) nomenclature).getBouquetId()+", 1, 1)";
         jdbcTemplate.update(conn -> conn.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS),
                 keyHolder);
-        int id = (int) keyHolder.getKeys().get("id");
-        jdbcTemplate.execute("INSERT INTO balance VALUES(" + id + "," + ((Nomenclature) nomenclature).getBalance() + ")");
-        jdbcTemplate.execute("INSERT INTO price VALUES(" + id + "," + ((Nomenclature) nomenclature).getPrice() + ")");
+        int id = ((BigInteger) keyHolder.getKeys().get("GENERATED_KEY")).intValue();
+        jdbcTemplate.execute("INSERT INTO balance VALUES(" + id + "," + ((Nomenclature) nomenclature).getBalance().getAmount() + ")");
+        jdbcTemplate.execute("INSERT INTO price VALUES(" + id + "," + ((Nomenclature) nomenclature).getPrice().getPrice() + ")");
         return id;
     }
 
@@ -69,4 +81,15 @@ public class NomenclatureService implements Service {
         jdbcTemplate.execute("DELETE from Balance where nomenclature=" + ((Nomenclature) nomenclature).getId());
         jdbcTemplate.execute("DELETE from Price where nomenclature=" + ((Nomenclature) nomenclature).getId());
     }
+
+    @Override
+    public List<Model> getAll() {
+        return (List<Model>) jdbcTemplate.queryForObject("select * from nomenclature", Nomenclature.class);
+    }
+
+    @Override
+    public List<Nomenclature> getAllByCriteria() {
+        return null;
+    }
+
 }

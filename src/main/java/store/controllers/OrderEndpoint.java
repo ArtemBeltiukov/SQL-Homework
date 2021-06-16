@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Endpoint
+//@Endpoint
 public class OrderEndpoint implements PayloadEndpoint {
     private static final String NAMESPACE_URI = "http://www.example.com/gen";
 
